@@ -2,12 +2,13 @@ set today to current date
 set todayWeekday to weekday of today as integer
 set daysUntilSunday to (8 - todayWeekday) mod 7
 set nextSunday to today + (daysUntilSunday * days)
+
 set {year:y} to nextSunday
 set firstOfYear to date ("1/1/" & y)
 set firstWeekday to weekday of firstOfYear as integer
 set diffDays to (nextSunday - firstOfYear) / days
 set weekNumber to (diffDays + firstWeekday - 1) div 7 + 1
-return weekNumber
+
 set weekDates to {}
 repeat with i from 0 to 6
 	set currentDate to nextSunday + (i * days)
@@ -55,8 +56,14 @@ tell application "System Events"
 	tell application process "Notes"
 		set frontmost to true
 	end tell
-	
 	delay 1
-	my replaceText("dd/mm/aa", "03/08/25")
-	my replaceText("dd/mm/aa", "09/08/25")
+	my replaceText("N.", (weekNumber as text) & ".")
+	my replaceText("dd/mm/aa", my formatDateWithYear(item 1 of weekDates))
+	my replaceText("dd/mm/aa", my formatDateWithYear(item -1 of weekDates))
+	repeat with i from 1 to 7
+		my replaceText("dd/mm", my formatDateNoYear(item i of weekDates))
+	end repeat
+	repeat 2 times
+		my replaceText("Posterior/Iniciado/Conclu’do", "Posterior")
+	end repeat
 end tell
