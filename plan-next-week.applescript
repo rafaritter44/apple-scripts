@@ -47,6 +47,7 @@ on replaceText(findText, replaceWith)
 		key code 51 -- Delete
 		delay 0.1
 		keystroke replaceWith
+		delay 0.2
 	end tell
 end replaceText
 
@@ -57,6 +58,5 @@ tell application "System Events"
 	
 	delay 1
 	my replaceText("dd/mm/aa", "03/08/25")
-	delay 0.2
 	my replaceText("dd/mm/aa", "09/08/25")
 end tell
