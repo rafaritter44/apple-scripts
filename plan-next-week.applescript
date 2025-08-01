@@ -42,7 +42,9 @@ on replaceText(findText, replaceWith)
 		keystroke "f" using {command down} -- Cmd+F
 		delay 0.2
 		keystroke findText
-		delay 0.5
+		delay 0.3
+		key code 36 -- Return
+		delay 0.2
 		key code 53 -- Esc
 		delay 0.2
 		key code 51 -- Delete
@@ -57,13 +59,10 @@ tell application "System Events"
 		set frontmost to true
 	end tell
 	delay 1
-	my replaceText("N.", (weekNumber as text) & ".")
 	my replaceText("dd/mm/aa", my formatDateWithYear(item 1 of weekDates))
 	my replaceText("dd/mm/aa", my formatDateWithYear(item -1 of weekDates))
 	repeat with i from 1 to 7
 		my replaceText("dd/mm", my formatDateNoYear(item i of weekDates))
 	end repeat
-	repeat 2 times
-		my replaceText("Posterior/Iniciado/Conclu’do", "Posterior")
-	end repeat
+	my replaceText("N.", (weekNumber as text) & ".")
 end tell
