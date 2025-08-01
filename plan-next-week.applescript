@@ -8,7 +8,31 @@ repeat with i from 0 to 6
 	set end of weekDates to currentDate
 end repeat
 
-return weekDates
+on pad2(num)
+	-- Convert number to string with leading zero if needed.
+	return text -2 thru -1 of ("0" & num)
+end pad2
+
+on formatDateNoYear(d)
+	set dayNum to day of d
+	set dayStr to pad2(dayNum)
+	set monthNum to month of d as integer
+	set monthStr to pad2(monthNum)
+	return dayStr & "/" & monthStr
+end formatDateNoYear
+
+on formatDateWithYear(d)
+	set dayNum to day of d
+	set dayStr to pad2(dayNum)
+	set monthNum to month of d as integer
+	set monthStr to pad2(monthNum)
+	set yearNum to (year of d) mod 100
+	return dayStr & "/" & monthStr & "/" & yearNum
+end formatDateWithYear
+
+set firstDate to item 1 of weekDates
+set formattedFirstDate to formatDateWithYear(firstDate)
+return formattedFirstDate
 
 on replaceText(findText, replaceWith)
 	tell application "System Events"
