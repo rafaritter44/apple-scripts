@@ -1,3 +1,15 @@
+set today to current date
+set todayWeekday to weekday of today as integer
+set daysUntilSunday to (8 - todayWeekday) mod 7
+set nextSunday to today + (daysUntilSunday * days)
+set weekDates to {}
+repeat with i from 0 to 6
+	set currentDate to nextSunday + (i * days)
+	set end of weekDates to currentDate
+end repeat
+
+return weekDates
+
 on replaceText(findText, replaceWith)
 	tell application "System Events"
 		keystroke "f" using {command down} -- Cmd+F
