@@ -2,6 +2,12 @@ set today to current date
 set todayWeekday to weekday of today as integer
 set daysUntilSunday to (8 - todayWeekday) mod 7
 set nextSunday to today + (daysUntilSunday * days)
+set {year:y} to nextSunday
+set firstOfYear to date ("1/1/" & y)
+set firstWeekday to weekday of firstOfYear as integer
+set diffDays to (nextSunday - firstOfYear) / days
+set weekNumber to (diffDays + firstWeekday - 1) div 7 + 1
+return weekNumber
 set weekDates to {}
 repeat with i from 0 to 6
 	set currentDate to nextSunday + (i * days)
@@ -29,10 +35,6 @@ on formatDateWithYear(d)
 	set yearNum to (year of d) mod 100
 	return dayStr & "/" & monthStr & "/" & yearNum
 end formatDateWithYear
-
-set firstDate to item 1 of weekDates
-set formattedFirstDate to formatDateWithYear(firstDate)
-return formattedFirstDate
 
 on replaceText(findText, replaceWith)
 	tell application "System Events"
